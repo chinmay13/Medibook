@@ -18,11 +18,11 @@ public class Doctor {
     private String id;
 
     @NotNull(message = "First Name is required")
-    @Size(min = 2, max=100, message = "First Name must be between 2 and 100 characters")
+    @Size(min = 2, max=30, message = "First Name must be between 2 and 30 characters")
     private String firstname;
 
     @NotNull(message = "Last Name is required")
-    @Size(min = 2, max=100, message = "Last Name must be between 2 and 100 characters")
+    @Size(min = 2, max=30, message = "Last Name must be between 2 and 30 characters")
     private String lastname;
 
     @NotNull(message = "Email is required")

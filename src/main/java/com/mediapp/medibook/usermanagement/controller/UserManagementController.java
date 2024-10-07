@@ -5,9 +5,7 @@ import com.mediapp.medibook.patient.model.Patient;
 import com.mediapp.medibook.usermanagement.service.UserManagementService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,8 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
+
 
 @RestController
 @RequestMapping("/api")
@@ -40,9 +37,10 @@ public class UserManagementController {
     }
 
     @PostMapping("/register/patient")
-    public ResponseEntity<String> registerPatient(@Valid @RequestBody Patient patient){
-        userManagementService.registerPatient(patient);
-
-        return ResponseEntity.ok("Patient registered successfully");
+    public ResponseEntity<String> registerPatient(@Valid @RequestBody Patient patient,
+                                                  UriComponentsBuilder ucb){
+        Patient newPatient = userManagementService.registerPatient(patient);
+        URI locationOfNewPatientObject = ucb.path("/api/patient/{id}").buildAndExpand(newPatient.getId()).toUri();
+        return ResponseEntity.created(locationOfNewPatientObject).body("Patient Created Successfully");
     }
 }
