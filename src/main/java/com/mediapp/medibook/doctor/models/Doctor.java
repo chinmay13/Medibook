@@ -40,6 +40,8 @@ public class Doctor {
     private String specialization;
     private List<String> appointments;
 
+    public Doctor(){}
+
     public Doctor(String firstname,
                   String lastname,
                   String email,
