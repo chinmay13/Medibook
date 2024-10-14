@@ -1,4 +1,5 @@
 package com.mediapp.medibook.patient.service;
+
 import com.mediapp.medibook.patient.dto.PatientViewDTO;
 import com.mediapp.medibook.patient.mapper.PatientMapper;
 import com.mediapp.medibook.patient.model.Patient;
@@ -23,5 +24,4 @@ public class PatientServiceImpl implements PatientService {
                 .map(patientMapper::toPatientViewDTO)
                 .collect(Collectors.toList());
     }
-
 }

@@ -4,6 +4,9 @@ import com.mediapp.medibook.common.exception.InvalidSearchCriteriaException;
 import com.mediapp.medibook.doctor.dto.DoctorSearchDTO;
 import com.mediapp.medibook.doctor.models.Doctor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -21,7 +24,7 @@ public class DoctorRepositoryCustomImpl implements DoctorRepositoryCustom {
     }
 
     @Override
-    public List<Doctor> searchDoctor(DoctorSearchDTO doctorSearchDTO) {
+    public Page<Doctor> searchDoctor(DoctorSearchDTO doctorSearchDTO, Pageable pageable) {
 
         validateDoctorSearchDTO(doctorSearchDTO);
 
@@ -50,8 +53,13 @@ public class DoctorRepositoryCustomImpl implements DoctorRepositoryCustom {
         if(doctorSearchDTO.getGender() != null){
             query.addCriteria(Criteria.where("gender").is(doctorSearchDTO.getGender()));
         }
+        query.with(pageable);
 
-        return mongoTemplate.find(query, Doctor.class);
+        List<Doctor> doctorsList = mongoTemplate.find(query, Doctor.class);
+
+        long total = mongoTemplate.count(query.skip(-1).limit(-1), Doctor.class);
+
+        return new PageImpl<>(doctorsList, pageable, total);
     }
 
     private void validateDoctorSearchDTO(DoctorSearchDTO doctorSearchDTO) {
