@@ -7,7 +7,6 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -25,7 +24,7 @@ public class Patient {
     private String lastName;
 
     @Past(message = "Date of Birth must be a past date")
-    private Date dob;
+    private String dob;
 
     @Size(min = 10, max = 15, message = "Phone number must be between 10 and 15 digits")
     private String phone;
