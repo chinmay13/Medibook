@@ -2,10 +2,7 @@ package com.mediapp.medibook.patient.dto;
 
 import com.mediapp.medibook.common.models.Address;
 import com.mediapp.medibook.common.models.Gender;
-
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 public class PatientViewDTO {
@@ -18,7 +15,6 @@ public class PatientViewDTO {
     private String email;
     private Gender gender;
     private Address address;
-    private List<String> appointments;
     private boolean isCreatedByDoctor;
 }
 

@@ -17,11 +17,11 @@ public class Patient {
 
     @NotNull(message = "First Name is required")
     @Size(min = 2, max=30, message = "First Name must be between 2 and 30 characters")
-    private String firstName;
+    private String firstname;
 
     @NotNull(message = "Last Name is required")
     @Size(min = 2, max=30, message = "Last Name must be between 2 and 30 characters")
-    private String lastName;
+    private String lastname;
 
     @Past(message = "Date of Birth must be a past date")
     private String dob;
@@ -34,7 +34,7 @@ public class Patient {
 
     private Gender gender;
     private Address address;
-    private List<String> appointments;
+    private List<String> booked_appointments;
     private boolean isCreatedByDoctor;
 
 }
